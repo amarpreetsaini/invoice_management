@@ -1,10 +1,12 @@
 <?php
 /*** begin our session ***/
+// Check connection
 $con=mysql_connect("localhost","invoice_user","invoice_user")or
     die("Could not connect: " . mysql_error());;
-// Check connection
 
 mysql_select_db('invoice_management', $con) or die('Could not select database.');
+$lid_invoice_id = $_GET['lid_invoice_id'];
+
 
 if($_POST){
 
@@ -18,21 +20,21 @@ $out_challan_no = filter_var($_POST['out_challan_no'], FILTER_SANITIZE_STRING);
 $balance = filter_var($_POST['balance'], FILTER_SANITIZE_STRING);
 $rejection = filter_var($_POST['rejection'], FILTER_SANITIZE_STRING);
 
-$sql = "INSERT INTO lid_invoices (in_date,in_challan_no,artical,quantity,outgoing,out_date,out_challan_no,balance,rejection) VALUES ('$in_date','$in_challan_no','$artical','$quantity','$outgoing','$out_date','$out_challan_no','$balance','$rejection')";
+$sql_insert = "UPDATE lid_invoices SET in_date='$in_date',in_challan_no='$in_challan_no',artical='$artical',quantity='$quantity',outgoing='$outgoing',out_date='$out_date',out_challan_no='$out_challan_no',balance='$balance',rejection='$rejection' WHERE lid_invoice_id='$lid_invoice_id'";
 
-$result = mysql_query($sql);
+$result_insert = mysql_query($sql_insert);
 
-if (!$result) {
+if (!$result_insert) {
     die('Invalid query: ' . mysql_error());
 }
+
 }
 
-
-$sql_results = "select *  FROM lid_invoices";
-$result_report = mysql_query($sql_results);
-
+$sql = "select *  FROM lid_invoices WHERE lid_invoice_id='$lid_invoice_id'";
+$result = mysql_query($sql);
 
 mysql_close($con);
+
 ?>
 
 <!DOCTYPE html>
@@ -60,22 +62,23 @@ mysql_close($con);
             </div>
 
 		<div class="row">
-			<h4 class="col-md-6">Recieved</h4><h4 class="col-md-6">Issued</h4>
-
-		<div class="">
+		<div class="col-md-12">
 		<form id="addinvoice" class="form-horizontal" action="" method="POST">
-		<div class="col-md-6">
+		<input type="hidden" name="lid_invoice_id" value="<?php echo $_GET['lid_invoice_id']?>">
 
 		<table id="invoice_table1" class="invoice_table table table-bordered table-responsive table-condensed">
+		<? while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) { ?>
 			<thead>
-				<tr class="active"><th>In Challan-No</th><th>In-date</th><th>Artical</th><th>Quantity</th>
+				<tr class="active"><th>In Challan-No</th><th>In-date</th><th>Artical</th><th>Quantity</th><th>Outgoing</th>
+			<th>Out-Date</th><th>Out-Challan-No</th><th>Balance</th><th>Rejection</th><th>Update</th>
 			</tr></thead>
 			<tbody>
 			<tr>
-				<td><input class="form-control" id ="in_challan_no" name ="in_challan_no" value="" required="required"></td>
-				<td><input class="form-control" id ="in_date" name ="in_date" value="" required="required"></td>
-				<td>
-					<select class="form-control" id="artical" name="artical" required="required">
+				<td><input class="form-control" id ="in_challan_no" name ="in_challan_no" value="<?php echo $row['in_challan_no']?>" required="required"></td>
+				<td><input class="form-control" id ="in_date" name ="in_date" value="<?php echo $row['in_date']?>" required="required"></td>
+				<td width="150px">
+					<select class="form-control" id="artical" name="artical" required="required" >
+						<option value=""><?php echo $row['artical']?></option>
 						<option value="Hawkins STD">Hawkins STD</option>
 						<option value="MissMarry STD">MissMarry STD</option>
 						<option value="Hawkins Baby">Hawkins Baby</option>
@@ -88,69 +91,23 @@ mysql_close($con);
 						<option value="Inside Emery">Inside Emery</option>
 					</select>			
 				</td>
-				<td><input class="form-control" id ="quantity" name ="quantity" value="" required="required"></td>
+				<td><input class="form-control" id ="quantity" name ="quantity" value="<?php echo $row['quantity']?>" required="required"></td>
+				<td><input class="form-control" id ="outgoing" name ="outgoing" value="<?php echo $row['outgoing']?>" required="required"></td>
+				<td><input class="form-control" id ="out_date" name ="out_date" value="<?php echo $row['out_date']?>" required="required"></td>
+				<td><input class="form-control" id ="out_challan_no" name ="out_challan_no" value="<?php echo $row['out_challan_no']?>" required="required"></td>
+				<td><input class="form-control" id ="balance" name ="balance" value="<?php echo $row['balance']?>" required="required"></td>
+				<td><input class="form-control" id ="rejection" name ="rejection" value="<?php echo $row['rejection']?>" required="required"></td>
+				<td><button type="submit" class="btn btn-primary">Update</button></td>
 
 			</tr>
 			</tbody>
-			
+<?} ?>			
 			</table>
-</div>
-		<div class="col-md-6">
-
-		<table id="invoice_table1" class="invoice_table table table-bordered table-responsive table-condensed">
-			<thead>
-				<tr class="active"><th>Out-Challan-No</th>
-			<th>Out-Date</th><th>Delivered</th><th>Balance</th><th>Rejection</th><th>Submit</th>
-			</tr></thead>
-			<tbody>
-				<td><input class="form-control" id ="out_challan_no" name ="out_challan_no" value="" required="required"></td>
-				<td><input class="form-control" id ="out_date" name ="out_date" value="" required="required"></td>
-				<td><input class="form-control" id ="outgoing" name ="outgoing" value="" required="required"></td>
-				<td><input class="form-control" id ="balance" name ="balance" value="" required="required"></td>
-				<td><input class="form-control" id ="rejection" name ="rejection" value="" required="required"></td>
-				<td><button type="submit" class="btn btn-primary">Submit</button></td>
-
-			</tr>
-			</tbody>
-			
-			</table>
-</div>
 
 
 </form>
 
 </div>
-
-<div class="row">
-<div class="col-md-12">
-
-        <table id="invoice_table" class="table table-bordered table-responsive table-condensed">
-        <thead>
-        	<tr class="active"><th>In ChallanNo</th><th>In-date</th><th>Artical</th><th>Quantity</th>
-			<th>Delivered</th><th>Out-Date</th><th>Out Challan-No</th><th>Balance</th><th>Rejection</th><th>Edit</th>
-			</tr></thead><tboby>
-			<?php
-		while ($row = mysql_fetch_array($result_report, MYSQL_ASSOC)) { ?>
-			<tr>
-			<td><? echo $row["in_challan_no"] ?></td>
-			<td><? echo $row["in_date"] ?></td>
-			<td><? echo $row["artical"] ?></td>
-			<td><? echo $row["quantity"] ?></td>
-			<td><? echo $row["outgoing"] ?></td>
-			<td><? echo $row["out_date"] ?></td>
-			<td><? echo $row["out_challan_no"] ?></td>
-			<td><? echo $row["balance"] ?></td>
-			<td><? echo $row["rejection"] ?></td>
-			<td><a href='lid_invoice_edit.php?lid_invoice_id=<? echo $row['lid_invoice_id'] ?>'><i class="fa fa-edit"></i> Edit</a></td>
-
-			</tr>
-
-		<?	} ?>
-		</tbody></table>
-
-</div>
-</div>
-
 </div>
 	</div>
 	</div>

@@ -6,8 +6,11 @@ $con=mysql_connect("localhost","invoice_user","invoice_user")or
 mysql_select_db('invoice_management', $con) or die('Could not select database.');
 
 
-$sql_count = "select count(*) as component_count FROM component_invoices";
-$result = mysql_query($sql_count);
+$sql_count_component = "select count(*) as component_count FROM component_invoices";
+$sql_count_lid = "select count(*) as lid_count FROM lid_invoices";
+
+$result_component = mysql_query($sql_count_component);
+$result_lid = mysql_query($sql_count_lid);
 
 ?>
 <!DOCTYPE html>
@@ -30,7 +33,7 @@ $result = mysql_query($sql_count);
     <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12 ">
-                    <h3 class="page-header">Home</h3>
+                    <h3 class="page-header">Reports</h3>
                 </div>
                 <div class="col-lg-3">
                     <div class="panel panel-default">
@@ -38,10 +41,25 @@ $result = mysql_query($sql_count);
 					<h3 class="panel-title">Component Invoices</h3>                    
 						</div>                    
                     <div class="panel-body">                    
-						<div class="">Total Invoices : <?	while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) { echo $row["component_count"]; }?>						
+						<div class="">Total Invoices : <?	while ($row = mysql_fetch_array($result_component, MYSQL_ASSOC)) { echo $row["component_count"]; }?>						
 						</div>
 					  <ul class="pager">
-						<li><a href="#">view all</a></li>
+						<li><a href="component_invoice_report.php">view all</a></li>
+					  </ul>
+                    </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3">
+                    <div class="panel panel-default">
+                    <div class="panel-heading">
+					<h3 class="panel-title">Lid Invoices</h3>                    
+						</div>                    
+                    <div class="panel-body">                    
+						<div class="">Total Invoices : <?	while ($row = mysql_fetch_array($result_lid, MYSQL_ASSOC)) { echo $row["lid_count"]; }?>						
+						</div>
+					  <ul class="pager">
+						<li><a href="lid_invoice_report.php">view all</a></li>
 					  </ul>
                     </div>
                     </div>

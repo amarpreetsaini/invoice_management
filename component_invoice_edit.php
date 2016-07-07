@@ -1,11 +1,14 @@
 <?php
 /*** begin our session ***/
-if($_POST){
+
 $con=mysql_connect("localhost","invoice_user","invoice_user")or
     die("Could not connect: " . mysql_error());;
-// Check connection
 
 mysql_select_db('invoice_management', $con) or die('Could not select database.');
+$invoice_id = $_GET['invoice_id'];
+
+
+if($_POST){
 
 $in_challan_no = filter_var($_POST['in_challan_no'], FILTER_SANITIZE_STRING);
 $in_date = filter_var($_POST['in_date'], FILTER_SANITIZE_STRING);
@@ -18,16 +21,21 @@ $quantity = filter_var($_POST['quantity'], FILTER_SANITIZE_STRING);
 $balance = filter_var($_POST['balance'], FILTER_SANITIZE_STRING);
 $rejection = filter_var($_POST['rejection'], FILTER_SANITIZE_STRING);
 
-$sql = "INSERT INTO component_invoices (in_challan_no,in_date,component,weight,in_numbers,out_challan_no,out_date,quantity,balance,rejection) VALUES ('$in_challan_no','$in_date','$component','$weight','$in_numbers','$out_challan_no','$out_date','$quantity','$balance','$rejection')";
+$sql_update = "UPDATE component_invoices SET in_challan_no='$in_challan_no',in_date='$in_date',component='$component',weight='$weight',in_numbers='$in_numbers',out_challan_no='$out_challan_no',out_date='$out_date',quantity='$quantity',balance='$balance',rejection='$rejection' WHERE invoice_id='$invoice_id'";
 
-$result = mysql_query($sql);
+$result_update = mysql_query($sql_update);
 
-if (!$result) {
+if (!$result_update) {
     die('Invalid query: ' . mysql_error());
 }
 
-mysql_close($con);
+
 }
+$sql = "select *  FROM component_invoices WHERE invoice_id='$invoice_id'";
+$result = mysql_query($sql);
+
+mysql_close($con);
+
 ?>
 
 <!DOCTYPE html>
@@ -58,35 +66,39 @@ mysql_close($con);
 		<div class="row">
 		<div class="col-md-12">
 		<form id="addinvoice" class="form-horizontal" action="" method="POST">
+		<input type="hidden" name="invoice_id" value="<?php echo $_GET['invoice_id']?>">
 
 		<table id="invoice_table1" class="invoice_table table table-bordered table-responsive table-condensed">
+		<? while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) { ?>
+
 			<thead>
-				<tr class="active"><th>In Challan-No</th><th>In-date</th><th>Component</th><th>Weight</th><th>In-Numbers</th>
-			<th>Out Challan-No</th><th>Out-Date</th><th>Quantity</th><th>Balance</th><th>Rejection</th><th>Submit</th>
+				<tr class="active"><th>In ChallanNo</th><th>In-date</th><th>Component</th><th>Weight</th><th>In-Numbers</th>
+			<th>Out Challan-No</th><th>Out-Date</th><th>Quantity</th><th>Balance</th><th>Rejection</th><th>Update</th>
 			</tr></thead>
 			<tbody>
 			<tr>
-				<td><input class="form-control" id ="in_challan_no" name ="in_challan_no" value="" ></td>
-				<td><input class="form-control" id ="in_date" name ="in_date" value=""></td>
+				<td><input class="form-control" id ="in_challan_no" name ="in_challan_no" value="<?php echo $row['in_challan_no']?>" ></td>
+				<td><input class="form-control" id ="in_date" name ="in_date" value="<?php echo $row['in_date']?>"></td>
 				<td>
 					<select class="form-control" id="component" name="component">
+						<option><?php echo $row['component']?></option>
 						<option value="ALM Cover Head">ALM Cover Head</option>
 						<option value="ALM S.H.B.">ALM S.H.B.</option>
 						<option value="S.S.Coil"> S.S.Coil</option>
 						<option value="Brasswire">Brasswire</option>
-
 					</select>			
 				</td>
-				<td><input class="form-control" id ="weight" name ="weight" value=""></td>
-				<td><input class="form-control" id ="in_numbers" name ="in_numbers" value=""></td>
-				<td><input class="form-control" id ="out_challan_no" name ="out_challan_no" value=""></td>
-				<td><input class="form-control" id ="out_date" name ="out_date" value=""></td>
-				<td><input class="form-control" id ="quantity" name ="quantity" value=""></td>
-				<td><input class="form-control" id ="balance" name ="balance" value=""></td>
-				<td><input class="form-control" id ="rejection" name ="rejection" value=""></td>
-				<td><button type="submit" class="btn btn-primary">Submit</button></td>
+				<td><input class="form-control" id ="weight" name ="weight" value="<?php echo $row['weight']?>"></td>
+				<td><input class="form-control" id ="in_numbers" name ="in_numbers" value="<?php echo $row['in_numbers']?>"></td>
+				<td><input class="form-control" id ="out_challan_no" name ="out_challan_no" value="<?php echo $row['out_challan_no']?>"></td>
+				<td><input class="form-control" id ="out_date" name ="out_date" value="<?php echo $row['out_date']?>"></td>
+				<td><input class="form-control" id ="quantity" name ="quantity" value="<?php echo $row['quantity']?>"></td>
+				<td><input class="form-control" id ="balance" name ="balance" value="<?php echo $row['balance']?>"></td>
+				<td><input class="form-control" id ="rejection" name ="rejection" value="<?php echo $row['rejection']?>"></td>
+				<td><button type="submit" class="btn btn-primary">Update</button></td>
 			</tr>
 			</tbody>
+<?} ?>			
 			
 			</table>
 

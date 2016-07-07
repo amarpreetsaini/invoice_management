@@ -357,3 +357,14 @@ table.dataTable thead .sorting:after {
     display: block;
     padding: 10px;
 }
+
+.input-line{
+ background: transparent;
+  border: none;
+  border-bottom:1px dotted #ddd;
+  outline: none;
+  width:100%;
+       }
+.input-line:focus{
+    outline: none;
+}
