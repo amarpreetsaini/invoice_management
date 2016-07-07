@@ -58,6 +58,8 @@ $result = mysql_query($sql);
 </head>
 
 <body style="background:white">
+  <button id="add-row" class=" btn btn-lg btn-default btn-primary hidden-print"><i class="fa fa-plus"></i> Add new row</button>
+
             <div class="col-lg-12">
 				</br>
    <div class="panel panel-default">
@@ -136,82 +138,50 @@ $result = mysql_query($sql);
 </form>
 
 </br>
-				</div>
+		</div>
 				<div class="col-lg-12 col-xs-12">
-						<table class="table table-bordered table-condensed">
+						<table class="table table-bordered table-condensed invoice-table" >
 						    <thead>
-								<tr class="active"><th>Sno</th><th>Full Description of Goods</th><th>Quantity</th><th>Value per unit ie Rate</th><th>Amount</th></tr>
+								<tr class="active"><th>Sno</th><th>Full Description of Goods</th><th>Quantity</th><th>Value per unit (Rate)</th><th>Amount (Rs)</th></tr>
 							</thead>
 							<tboby>
 								<tr>
-									<td class="col-lg-1 col-xs-1" >
-									  <input type="email" class=" input-line" id="" placeholder="">
-									  <input type="email" class=" input-line" id="" placeholder="">
-									  <input type="email" class=" input-line" id="" placeholder="">
-									  <input type="email" class=" input-line" id="" placeholder="">
-									  <input type="email" class=" input-line" id="" placeholder="">
-									  <input type="email" class=" input-line" id="" placeholder="">
-									  <input type="email" class=" input-line" id="" placeholder="">
-									  <input type="email" class=" input-line" id="" placeholder="">
-									  <input type="email" class=" input-line" id="" placeholder="">
-									  <input type="email" class=" input-line" id="" placeholder="">
+									<td class="col-lg-1 col-xs-1" id="sno_list">									  
+									  <input type="email" class=" input-line" name ='sno_1' id='sno_1' placeholder="" value="1">									  											
 									</td>
-									<td class="col-lg-5 col-xs-5">
-									  <input type="email" class=" input-line" id="" placeholder="">
-									  <input type="email" class=" input-line" id="" placeholder="">
-									  <input type="email" class=" input-line" id="" placeholder="">
-									  <input type="email" class=" input-line" id="" placeholder="">
-									  <input type="email" class=" input-line" id="" placeholder="">
-									  <input type="email" class=" input-line" id="" placeholder="">
-									  <input type="email" class=" input-line" id="" placeholder="">
-									  <input type="email" class=" input-line" id="" placeholder="">
-									  <input type="email" class=" input-line" id="" placeholder="">
-									  <input type="email" class=" input-line" id="" placeholder="">
+									<td class="col-lg-5 col-xs-5" id="desc_list">
+									  <input type="email" class=" input-line" name ='desc_1' id='desc_1' placeholder="">
 									</td>
-									
-									
-									<td class="col-lg-2 col-xs-2">
-									 <?php
-										for ($x = 1; $x <= 10; $x++) {
-											echo "<input type='' class='input-line' name ='q$x' id='q$x' placeholder='' onchange ='updateValue()'>";
-										}
-										?> 	
-									  
+																		
+									<td class="col-lg-2 col-xs-2" id="quantity_list">
+										<input type='' class='input-line' name ='quantity_1' id='quantity_1' placeholder='' onchange ='updateValue();'>									  
 									</td>
-									<td class="col-lg-2 col-xs-2">
-									 <?php
-										for ($x = 1; $x <= 10; $x++) {
-											echo "<input type='' class='input-line' name ='r$x' id='r$x' placeholder='' onchange ='updateValue()'>";
-										}
-										?> 	
-									
+									<td class="col-lg-2 col-xs-2" id="rate_list">
+										<input type='' class='input-line' name ='rate_1' id='rate_1' placeholder='' onchange ='updateValue()'>									  									
 									</td>
-									<td class="col-lg-2 col-xs-2">
-									 <?php
-										for ($x = 1; $x <= 10; $x++) {
-											echo "<input type='' class='input-line' name ='v$x' id='v$x' placeholder=''>";
-										}
-										?> 											
-									
+									<td class="col-lg-2 col-xs-2" id="ammount_list">
+										<input type='' class='input-line' name ='ammount_1' id='ammount_1' placeholder='' >									  									
 									</td>								
 								</tr>
+											
 									<tr>
-									<td rowspan="3"></td>
-									<td rowspan="3"></td>
-									<td rowspan="3"></td>
-									<td >Tax</td>
-									<td ></td>
+									<td rowspan="3" colspan="3"></td>
+									<td >Total Ammount</td>
+									<td > <input type="" class=" input-line" id="vat_gtotal" placeholder=""  onchange ='updateTotal()' ></td>
 									</tr>
 									<tr>
-									<td >Total VAT</td>
-									<td ></td>
+									<td class="col-lg-2 col-xs-2">
+										<div class="col-lg-5 col-xs-5">Tax @</div>
+										<div class="col-lg-7 col-xs-7"><input type="" class="input-line" id="vat_value" placeholder=""  onchange ='updateTotal()' value='0'></td>
+										</div>		
+									<td ><input type="" class=" input-line" id="vat_total" placeholder=""  onchange ='updateTotal()'></td>
+
 									</tr>
 									<tr>
-									<td >Gtotal</td>
+									<td >Gross total</td>
 									<td ><input type="" class=" input-line" id="gtotal" placeholder="">
 									</td>
 									</tr>
-
 							</tboby>	
 						</table>
 
@@ -219,6 +189,7 @@ $result = mysql_query($sql);
                 <!-- /.col-lg-12 -->
             </div>
             </div>
+	
 </div>         
             <!-- /.row -->
 
@@ -230,60 +201,62 @@ $result = mysql_query($sql);
     <!-- Bootstrap Core JavaScript -->
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
-    <!-- Metis Menu Plugin JavaScript -->
-    <script src="bower_components/metisMenu/dist/metisMenu.min.js"></script>
-
-    <!-- Morris Charts JavaScript -->
-    <script src="bower_components/raphael/raphael-min.js"></script>
-    <script src="bower_components/morrisjs/morris.min.js"></script>
-    <script src="../js/morris-data.js"></script>
-
+ 
     <!-- Custom Theme JavaScript -->
     <script src="dist/js/sb-admin-2.js"></script>
 
 </body>
-    <script src="bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
-    <script src="bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
-    <script src=" https://cdn.datatables.net/buttons/1.2.1/js/dataTables.buttons.min.js"></script>
-    <script src="//cdn.datatables.net/buttons/1.2.1/js/buttons.print.min.js "></script>
-    <script src="//cdn.datatables.net/buttons/1.2.1/js/buttons.colVis.min.js "></script>
 <script>
-    $('#invoice_table').DataTable(
-     {
-    renderer: "bootstrap",
-	dom: 'Bfrtip',
-    buttons: [
-            {
-			extend: 'print',
-			exportOptions: {
-			columns: ':visible'
-                }
-            },
-            'colvis'
-        ],
-        columnDefs: [ {
-            targets: -1,
-            visible: false
-        } ],
-    "responsive": true,
-    "columnDefs": [ {
-          "targets": 'no-sort',
-          "orderable": false,
+updateTotal = function(){
+var total = 0;
+var gtotal = 0;
+var vat_total =0;
+var count = $("#sno_list input").length;
 
-    } ],
-} );
+for (i=1;i<=count;i++){
+total += parseFloat(document.getElementById("ammount_"+i).value);
+}
+vat_total = parseFloat(document.getElementById("vat_value").value)*parseFloat(total)/100;
+
+document.getElementById("vat_total").value = vat_total.toFixed(2);
+gtotal = parseFloat(total) + parseFloat(document.getElementById("vat_total").value);
+document.getElementById("gtotal").value = gtotal.toFixed(2);
+};
 </script>
+
 
 <script>
 updateValue = function(){
-var gtotal = 0;
-for (i=1;i<=10;i++){
-document.getElementById("v"+i).value = document.getElementById("q"+i).value*document.getElementById("r"+i).value;
-gtotal += parseFloat(document.getElementById("v"+i).value);
+var gtotal =0;
+var count = $("#sno_list input").length;
+for (i=1;i<=count;i++){
+
+document.getElementById("ammount_"+i).value = (document.getElementById("quantity_"+i).value*document.getElementById("rate_"+i).value).toFixed(2);
+
+gtotal += parseFloat(document.getElementById("ammount_"+i).value);
 }
 
-document.getElementById("gtotal").value = gtotal;
+document.getElementById("vat_gtotal").value =gtotal.toFixed(2);
+updateTotal();
+
 };
+</script>
+
+
+<script>
+$("#add-row").click(function (e) {
+var count = $("#sno_list input").length;
+var next = parseInt(count) + parseInt(1)
+
+//Append a new row of code to the "#items" div
+  $("#sno_list").append("<input type='' class='input-line' name ='sno_"+next+"' id='sno_"+next+"' placeholder='' value='"+next+"'> ");
+  $("#desc_list").append("<input type='' class='input-line' name ='desc_"+next+"' id='desc_"+next+"' placeholder=''>");
+  $("#quantity_list").append("<input type='' class='input-line' name ='quantity_"+next+"' id='quantity_"+next+"' placeholder='' onchange ='updateValue();'> ");
+  $("#rate_list").append("<input type='' class='input-line' name ='rate_"+next+"' id='rate_"+next+"' placeholder='' onchange ='updateValue();'>");
+  $("#ammount_list").append("<input type='' class='input-line' name ='ammount_"+next+"' id='ammount_"+next+"' placeholder='' onchange ='updateValue();'>");
+
+});
+
 </script>
 </html>
 <?php
