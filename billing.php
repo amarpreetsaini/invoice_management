@@ -1,15 +1,3 @@
-<?php
-/*** begin our session ***/
-$con=mysql_connect("localhost","invoice_user","invoice_user")or
-    die("Could not connect: " . mysql_error());;
-// Check connection
-
-mysql_select_db('invoice_management', $con) or die('Could not select database.');
-
-$sql = "select *  FROM lid_invoices";
-$result = mysql_query($sql);
-
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -259,7 +247,3 @@ var next = parseInt(count) + parseInt(1)
 
 </script>
 </html>
-<?php
-
-mysql_close($con);
-?>

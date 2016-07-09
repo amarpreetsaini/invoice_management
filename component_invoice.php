@@ -31,7 +31,7 @@ mysql_close($con);
 ?>
 
 <!DOCTYPE html>
-<html>
+<html >
 <head>
 <title>Techportal</title>
 
