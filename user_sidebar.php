@@ -18,9 +18,15 @@
 							<p class="text-center text-muted"><small>Lid invoice</small></p></a>
                         </li>
                         <li class="text-center">
-                            <a href="user_editprofile.php">
-							<i class="fa fa-search fa-2x"></i>
-                            <p class="text-center text-muted"><small>Search invoices</small></p></a>
+                            <a href="billing.php" target="_blank" >
+							<i class="fa fa-file-text-o fa-2x"></i>
+                            <p class="text-center text-muted"><small>JS Billing</small></p></a>
+                        </li>
+
+                        <li class="text-center">
+                            <a href="js_billing_report.php" target="_blank" >
+							<i class="fa fa-file-text-o fa-2x"></i>
+                            <p class="text-center text-muted"><small>JS Billing Report</small></p></a>
                         </li>
 
                     </ul>

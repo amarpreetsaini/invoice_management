@@ -1,11 +1,12 @@
 <?php
 /*** begin our session ***/
-if($_POST){
 $con=mysql_connect("localhost","invoice_user","invoice_user")or
     die("Could not connect: " . mysql_error());;
 // Check connection
 
 mysql_select_db('invoice_management', $con) or die('Could not select database.');
+
+if($_POST){
 
 $in_challan_no = filter_var($_POST['in_challan_no'], FILTER_SANITIZE_STRING);
 $in_date = filter_var($_POST['in_date'], FILTER_SANITIZE_STRING);
@@ -25,9 +26,12 @@ $result = mysql_query($sql);
 if (!$result) {
     die('Invalid query: ' . mysql_error());
 }
+}
+
+$sql_report = "select *  FROM component_invoices";
+$result_report = mysql_query($sql_report);
 
 mysql_close($con);
-}
 ?>
 
 <!DOCTYPE html>
@@ -56,13 +60,17 @@ mysql_close($con);
             </div>
 
 		<div class="row">
-		<div class="col-md-12">
+			<h4 class="col-md-6">Recieved</h4><h4 class="col-md-6">Issued</h4>
+
+		<div class="">
+
 		<form id="addinvoice" class="form-horizontal" action="" method="POST">
+		<div class="col-md-6">
 
 		<table id="invoice_table1" class="invoice_table table table-bordered table-responsive table-condensed">
 			<thead>
 				<tr class="active"><th>In Challan-No</th><th>In-date</th><th>Component</th><th>Weight</th><th>In-Numbers</th>
-			<th>Out Challan-No</th><th>Out-Date</th><th>Quantity</th><th>Balance</th><th>Rejection</th><th>Submit</th>
+			
 			</tr></thead>
 			<tbody>
 			<tr>
@@ -79,6 +87,20 @@ mysql_close($con);
 				</td>
 				<td><input class="form-control" id ="weight" name ="weight" value=""></td>
 				<td><input class="form-control" id ="in_numbers" name ="in_numbers" value=""></td>
+			</tr>
+			</tbody>
+			
+			</table>
+		</div>
+		<div class="col-md-6">
+
+		<table id="invoice_table1" class="invoice_table table table-bordered table-responsive table-condensed">
+			<thead>
+				<tr class="active">
+			<th>Out-Challan-No</th><th>Out-Date</th><th>Quantity</th><th>Balance</th><th>Rejection</th><th>Submit</th>
+			</tr></thead>
+			<tbody>
+			<tr>
 				<td><input class="form-control" id ="out_challan_no" name ="out_challan_no" value=""></td>
 				<td><input class="form-control" id ="out_date" name ="out_date" value=""></td>
 				<td><input class="form-control" id ="quantity" name ="quantity" value=""></td>
@@ -89,11 +111,44 @@ mysql_close($con);
 			</tbody>
 			
 			</table>
+		</div>
 
 
 </form>
 
 </div>
+
+<div class="row">
+<div class="col-xs-12">
+
+        <table id="invoice_table" class="table table-bordered table-responsive table-condensed">
+        <thead>
+        	<tr class="active"><th>In ChallanNo</th><th>In-date</th><th>Component</th><th>Weight</th><th>In-Numbers</th>
+			<th>Out ChallanNo</th><th>Out-Date</th><th>Quantity</th><th>Balance</th><th>Rejection</th><th>Edit</th>
+			</tr></thead><tboby>
+			<?php
+		while ($row = mysql_fetch_array($result_report, MYSQL_ASSOC)) { ?>
+			<tr>
+			<td><? echo $row["in_challan_no"] ?></td>
+			<td><? echo $row["in_date"] ?></td>
+			<td><? echo $row["component"] ?></td>
+			<td><? echo $row["weight"] ?></td>
+			<td><? echo $row["in_numbers"] ?></td>
+			<td><? echo $row["out_challan_no"] ?></td>
+			<td><? echo $row["out_date"] ?></td>
+			<td><? echo $row["quantity"] ?></td>
+			<td><? echo $row["balance"] ?></td>
+			<td><? echo $row["rejection"] ?></td>
+			<td><a href='component_invoice_edit.php?invoice_id=<? echo $row['invoice_id'] ?>'><i class="fa fa-edit"></i> Edit</a></td>
+
+			</tr>
+
+		<?	} ?>
+		</tbody></table>
+
+</div>
+</div>
+
 </div>
 	</div>
 	</div>

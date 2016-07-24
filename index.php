@@ -8,9 +8,11 @@ mysql_select_db('invoice_management', $con) or die('Could not select database.')
 
 $sql_count_component = "select count(*) as component_count FROM component_invoices";
 $sql_count_lid = "select count(*) as lid_count FROM lid_invoices";
+$bill_count_lid = "select count(*) as bill_count FROM billing";
 
 $result_component = mysql_query($sql_count_component);
 $result_lid = mysql_query($sql_count_lid);
+$result_bill = mysql_query($bill_count_lid);
 
 ?>
 <!DOCTYPE html>
@@ -60,6 +62,21 @@ $result_lid = mysql_query($sql_count_lid);
 						</div>
 					  <ul class="pager">
 						<li><a href="lid_invoice_report.php">view all</a></li>
+					  </ul>
+                    </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3">
+                    <div class="panel panel-default">
+                    <div class="panel-heading">
+					<h3 class="panel-title">Billings</h3>                    
+						</div>                    
+                    <div class="panel-body">                    
+						<div class="">Total Billings  : <?	while ($row = mysql_fetch_array($result_bill, MYSQL_ASSOC)) { echo $row["bill_count"]; }?>						
+						</div>
+					  <ul class="pager">
+						<li><a href="js_billing_report.php">view all</a></li>
 					  </ul>
                     </div>
                     </div>
