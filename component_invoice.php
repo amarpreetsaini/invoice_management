@@ -41,7 +41,7 @@ mysql_close($con);
 
     <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="dist/css/sb-admin-2.css" rel="stylesheet">
-	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+	<link rel="stylesheet" href="dist/css/jquery-ui.css">
     <link href="css/steps.css" rel="stylesheet">
     <!-- Custom Fonts -->
     <link href="bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -159,11 +159,8 @@ mysql_close($con);
     <!-- Bootstrap Core JavaScript -->
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
-    <!-- Metis Menu Plugin JavaScript -->
-    <script src="bower_components/metisMenu/dist/metisMenu.min.js"></script>
-
 	<script src="js/jquery.steps.js" ></script>
-	<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.js" ></script>
+	<script src="dist/js/jquery.validate.js" ></script>
     <script src="dist/js/sb-admin-2.js"></script>
 
 <script>
@@ -199,7 +196,7 @@ form.children("div").steps({
 });
 
 </script>
-  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  <script src="dist/js/jquery-ui.js"></script>
    <script>
   $(function() {
     $( "#in_date" ).datepicker(

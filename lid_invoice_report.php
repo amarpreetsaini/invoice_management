@@ -24,22 +24,13 @@ $result = mysql_query($sql);
     <!-- Bootstrap Core CSS -->
     <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- MetisMenu CSS -->
-    <link href="bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
-
-    <!-- Timeline CSS -->
-    <link href="../dist/css/timeline.css" rel="stylesheet">
-
-
-    <!-- Morris Charts CSS -->
-    <link href="../bower_components/morrisjs/morris.css" rel="stylesheet">
-
     <!-- DataTables CSS -->
     <link href="bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet">
 
     <!-- DataTables Responsive CSS -->
     <link href="bower_components/datatables-responsive/css/dataTables.responsive.css" rel="stylesheet">
-    <link href="https://cdn.datatables.net/buttons/1.2.1/css/buttons.dataTables.min.css "rel="stylesheet">
+
+    <link href="bower_components/buttons/css/buttons.dataTables.min.css "rel="stylesheet">
 
     <!-- Custom CSS -->
     <link href="dist/css/sb-admin-2.css" rel="stylesheet">
@@ -119,9 +110,12 @@ $result = mysql_query($sql);
 </body>
     <script src="bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
     <script src="bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
-    <script src=" https://cdn.datatables.net/buttons/1.2.1/js/dataTables.buttons.min.js"></script>
-    <script src="//cdn.datatables.net/buttons/1.2.1/js/buttons.print.min.js "></script>
-    <script src="//cdn.datatables.net/buttons/1.2.1/js/buttons.colVis.min.js "></script>
+
+
+    <script src="bower_components/buttons/js/dataTables.buttons.min.js"></script>
+    <script src="bower_components/buttons/js/buttons.print.min.js "></script>
+    <script src="bower_components/buttons/js/buttons.colVis.min.js "></script>
+
 <script>
     $('#invoice_table').DataTable(
      {

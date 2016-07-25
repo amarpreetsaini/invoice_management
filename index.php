@@ -25,7 +25,7 @@ $result_bill2 = mysql_query($bill_count_lid2);
 
     <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="dist/css/sb-admin-2.css" rel="stylesheet">
-	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+	<link rel="stylesheet" href="dist/css/jquery-ui.css">
     <link href="css/steps.css" rel="stylesheet">
     <!-- Custom Fonts -->
     <link href="bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -73,7 +73,7 @@ $result_bill2 = mysql_query($bill_count_lid2);
                 <div class="col-lg-3">
                     <div class="panel panel-default">
                     <div class="panel-heading">
-					<h3 class="panel-title">Billings</h3>                    
+					<h3 class="panel-title">JS Enterprises Billings</h3>                    
 						</div>                    
                     <div class="panel-body">                    
 						<div class="">Total Billings  : <?	while ($row = mysql_fetch_array($result_bill, MYSQL_ASSOC)) { echo $row["bill_count"]; }?>						
@@ -88,7 +88,7 @@ $result_bill2 = mysql_query($bill_count_lid2);
                 <div class="col-lg-3">
                     <div class="panel panel-default">
                     <div class="panel-heading">
-					<h3 class="panel-title">Billings</h3>                    
+					<h3 class="panel-title">Green Plastics Industries</h3>                    
 						</div>                    
                     <div class="panel-body">                    
 						<div class="">Total Billings  : <?	while ($row = mysql_fetch_array($result_bill2, MYSQL_ASSOC)) { echo $row["bill_count"]; }?>						
@@ -117,11 +117,8 @@ $result_bill2 = mysql_query($bill_count_lid2);
     <!-- Bootstrap Core JavaScript -->
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
-    <!-- Metis Menu Plugin JavaScript -->
-    <script src="bower_components/metisMenu/dist/metisMenu.min.js"></script>
-
 	<script src="js/jquery.steps.js" ></script>
-	<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.js" ></script>
+	<script src="dist/js/jquery.validate.js" ></script>
     <script src="dist/js/sb-admin-2.js"></script>
 
 <script>
@@ -157,7 +154,8 @@ form.children("div").steps({
 });
 
 </script>
-  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  <script src="dist/js/jquery-ui.js"></script>
+
    <script>
   $(function() {
     $( "#in_date" ).datepicker(
