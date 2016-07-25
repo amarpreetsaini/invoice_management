@@ -1,15 +1,5 @@
 loadValues = function(){
 
-var company = {
-company_name : "J.S. ENTERPRISES",
-company_address :"F-10, Focal Point Phagwara Road, HOSHIARPUR-146001",
-phone1:"309600",	
-phone2:"248573",	
-mobile:"9815863400",
-tin:"03831004371",
-stcst_no:"37872911",	
-tin_dated:"6-1-93"
-};
 
 document.getElementById("company_name").innerHTML = company.company_name;
 document.getElementById("company_name_short").innerHTML = "For "+company.company_name;

@@ -18,17 +18,17 @@
 							<p class="text-center text-muted"><small>Lid invoice</small></p></a>
                         </li>
                         <li class="text-center">
-                            <a href="billing.php" target="_blank" >
+                            <a href="billing_js.php" target="_blank" >
 							<i class="fa fa-file-text-o fa-2x"></i>
                             <p class="text-center text-muted"><small>JS Billing</small></p></a>
                         </li>
 
                         <li class="text-center">
-                            <a href="js_billing_report.php" target="_blank" >
+                            <a href="billing_gp.php" target="_blank" >
 							<i class="fa fa-file-text-o fa-2x"></i>
-                            <p class="text-center text-muted"><small>JS Billing Report</small></p></a>
+                            <p class="text-center text-muted"><small>GP Billing</small></p></a>
                         </li>
-
+                        
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->

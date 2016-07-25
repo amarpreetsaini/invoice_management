@@ -9,6 +9,18 @@ mysql_select_db('invoice_management', $con) or die('Could not select database.')
 $sql = "select *  FROM billing";
 $result = mysql_query($sql);
 
+if($_POST){
+$id_billing = $_POST['id_billing'];
+$sql1 = "DELETE FROM billing_details WHERE id_billing = $id_billing" ;
+$result1 = mysql_query( $sql1 );
+
+$sql2 = "DELETE FROM billing WHERE id_billing = $id_billing" ;
+$result2 = mysql_query( $sql2 );
+
+header('Location: index.php');
+
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -73,7 +85,7 @@ $result = mysql_query($sql);
         <table id="invoice_table" class="table table-bordered table-responsive table-condensed">
         <thead>
         	<tr class="active"><th>Invoice No</th><th>M/s</th><th>Date</th><th>VRN/TIN No</th><th>Transport-Co</th>
-			<th>GR/RR No</th><th>Dated</th><th>Amount</th><th>Tax</th><th>Tax Amount</th><th>Gross total</th><th>view</th>
+			<th>GR/RR No</th><th>Dated</th><th>Amount</th><th>Tax</th><th>Tax Amount</th><th>Gross total</th><th>view</th><th>delete</th>
 			</tr></thead><tboby>
 			<?php
 		while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) { ?>
@@ -90,7 +102,15 @@ $result = mysql_query($sql);
 			<td><? echo $row["tax_value"] ?></td>
 			<td><? echo $row["g_total"] ?></td>
 
-			<td><a href='component_invoice_edit.php?invoice_id=<? echo $row['invoice_id'] ?>'><i class="fa fa-file-text-o"></i> View</a></td>
+			<td><a target="_blank" href='billing_view.php?id_billing=<? echo $row['id_billing'] ?>'><button>View</button></td>
+
+			<td>
+				<form method = "post" action = "<?php $_PHP_SELF ?>" onsubmit="return confirm('Do you really want to Delete row?');">
+				<input name = "id_billing" value='<? echo $row["id_billing"] ?>' type='hidden'> 
+				<input name = "delete" type = "submit" id = "delete" value = "Delete">
+				</form>
+			</td>
+
 
 			</tr>
 
